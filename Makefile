@@ -7,7 +7,7 @@ CXX?=g++
 gifbench: main.go go.mod go.sum
 	$(GO) build -o $@ .
 
-bin/go: binsrc/go/main.go go.mod go.sum
+bin/go: binsrc/go/main.go internal/gif/reader.go internal/gif/writer.go go.mod go.sum
 	$(GO) build -o $@ ./binsrc/go
 
 bin/vips: binsrc/vips/vips.cc
