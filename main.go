@@ -94,7 +94,7 @@ func main() {
 						cmd.ProcessState.SysUsage().(*syscall.Rusage).Maxrss)
 				}
 			} else {
-				fmt.Fprintf(out, "error\t\t\n")
+				fmt.Fprintf(out, "error\t\t\t\n")
 			}
 		}
 	}
