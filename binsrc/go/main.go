@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -52,10 +51,8 @@ func caption(rdr io.Reader, wtr io.Writer, fn compositeFunc) error {
 	defer close(in)
 	for i := 0; i < concurrency; i++ {
 		go func(i int) {
-			//defer fmt.Println("worker exit", i)
 			for b := range in {
 				if under {
-					//fmt.Println("KEK")
 					draw.Draw(b.m, outbounds, img, image.Point{}, draw.Src)
 					draw.Draw(b.m, outbounds, b.in, pt, draw.Over)
 				} else {
