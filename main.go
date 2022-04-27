@@ -34,8 +34,8 @@ func main() {
 	prog := flag.String("prog", "", "only benchmark this program")
 	file := flag.String("file", "", "only benchmark this file")
 	v := flag.Bool("v", false, "verbose")
-	tabbed := flag.Bool("tabbed", false,
-		"print tabbed output instead of aligned output")
+	aligned := flag.Bool("aligned", false,
+		"print aligned output instead of tab-delimited output")
 	flag.Parse()
 	binprogs, err := os.ReadDir("bin")
 	if err != nil {
@@ -61,12 +61,12 @@ func main() {
 		log.Fatalln("creating output dir:", err)
 	}
 	var out io.Writer
-	if *tabbed {
-		out = os.Stdout
-	} else {
+	if *aligned {
 		tw := tabwriter.NewWriter(os.Stdout, 0, 0, 1, ' ', tabwriter.AlignRight)
 		defer tw.Flush()
 		out = tw
+	} else {
+		out = os.Stdout
 	}
 	for _, f := range files {
 		if *file != "" && f.Name() != *file {
