@@ -31,6 +31,8 @@ type Program struct {
 type CommandFunc func(in, out string, cap string) (*exec.Cmd, error)
 
 func main() {
+	prog := flag.String("prog", "", "only benchmark this program")
+	file := flag.String("file", "", "only benchmark this file")
 	v := flag.Bool("v", false, "verbose")
 	tabbed := flag.Bool("tabbed", false,
 		"print tabbed output instead of aligned output")
@@ -67,7 +69,13 @@ func main() {
 		out = tw
 	}
 	for _, f := range files {
+		if *file != "" && f.Name() != *file {
+			continue
+		}
 		for _, p := range progs {
+			if *prog != "" && p.Name != *prog {
+				continue
+			}
 			if *v {
 				log.Printf("testing %s with %s", p.Name, f.Name())
 			}
